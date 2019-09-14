@@ -42,7 +42,7 @@
           <Property Name="Mail" Type="nvarchar" MaxLength="50" />
           <Property Name="Adresse" Type="nvarchar" MaxLength="2000" />
         </EntityType>
-        <Association Name="FK__OrderItem__Order__5AEE82B9">
+        <Association Name="FK__OrderItem__Order__02FC7413">
           <End Role="Orders" Type="Self.Orders" Multiplicity="0..1" />
           <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
           <ReferentialConstraint>
@@ -54,7 +54,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrderItems__CDId__44FF419A">
+        <Association Name="FK__OrderItems__CDId__03F0984C">
           <End Role="CDs" Type="Self.CDs" Multiplicity="1" />
           <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
           <ReferentialConstraint>
@@ -83,11 +83,11 @@
           <EntitySet Name="OrderItems" EntityType="Self.OrderItems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__OrderItem__Order__5AEE82B9" Association="Self.FK__OrderItem__Order__5AEE82B9">
+          <AssociationSet Name="FK__OrderItem__Order__02FC7413" Association="Self.FK__OrderItem__Order__02FC7413">
             <End Role="Orders" EntitySet="Orders" />
             <End Role="OrderItems" EntitySet="OrderItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__OrderItems__CDId__44FF419A" Association="Self.FK__OrderItems__CDId__44FF419A">
+          <AssociationSet Name="FK__OrderItems__CDId__03F0984C" Association="Self.FK__OrderItems__CDId__03F0984C">
             <End Role="CDs" EntitySet="CDs" />
             <End Role="OrderItems" EntitySet="OrderItems" />
           </AssociationSet>
@@ -111,7 +111,7 @@
           <Property Name="PictureUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Beschreibung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="OrderItems" Relationship="Self.FK__OrderItems__CDId__44FF419A" FromRole="CDs" ToRole="OrderItems" />
+          <NavigationProperty Name="OrderItems" Relationship="Self.FK__OrderItems__CDId__03F0984C" FromRole="CDs" ToRole="OrderItems" />
         </EntityType>
         <EntityType Name="OrderItems">
           <Key>
@@ -121,8 +121,8 @@
           <Property Name="OrderId" Type="Int32" />
           <Property Name="CDId" Type="Int32" Nullable="false" />
           <Property Name="Quantity" Type="Int32" />
-          <NavigationProperty Name="CDs" Relationship="Self.FK__OrderItems__CDId__44FF419A" FromRole="OrderItems" ToRole="CDs" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK__OrderItem__Order__5AEE82B9" FromRole="OrderItems" ToRole="Orders" />
+          <NavigationProperty Name="CDs" Relationship="Self.FK__OrderItems__CDId__03F0984C" FromRole="OrderItems" ToRole="CDs" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__OrderItem__Order__02FC7413" FromRole="OrderItems" ToRole="Orders" />
         </EntityType>
         <EntityType Name="Orders">
           <Key>
@@ -130,7 +130,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="UserId" Type="Int32" />
-          <NavigationProperty Name="OrderItems" Relationship="Self.FK__OrderItem__Order__5AEE82B9" FromRole="Orders" ToRole="OrderItems" />
+          <NavigationProperty Name="OrderItems" Relationship="Self.FK__OrderItem__Order__02FC7413" FromRole="Orders" ToRole="OrderItems" />
           <NavigationProperty Name="Users" Relationship="Self.FK__Orders__UserId__5BE2A6F2" FromRole="Orders" ToRole="Users" />
         </EntityType>
         <EntityType Name="Users">
@@ -144,7 +144,7 @@
           <Property Name="Adresse" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__UserId__5BE2A6F2" FromRole="Users" ToRole="Orders" />
         </EntityType>
-        <Association Name="FK__OrderItems__CDId__44FF419A">
+        <Association Name="FK__OrderItems__CDId__03F0984C">
           <End Role="CDs" Type="Self.CDs" Multiplicity="1" />
           <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
           <ReferentialConstraint>
@@ -156,7 +156,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrderItem__Order__5AEE82B9">
+        <Association Name="FK__OrderItem__Order__02FC7413">
           <End Role="Orders" Type="Self.Orders" Multiplicity="0..1" />
           <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
           <ReferentialConstraint>
@@ -185,11 +185,11 @@
           <EntitySet Name="OrderItems" EntityType="Self.OrderItems" />
           <EntitySet Name="Orders" EntityType="Self.Orders" />
           <EntitySet Name="Users" EntityType="Self.Users" />
-          <AssociationSet Name="FK__OrderItems__CDId__44FF419A" Association="Self.FK__OrderItems__CDId__44FF419A">
+          <AssociationSet Name="FK__OrderItems__CDId__03F0984C" Association="Self.FK__OrderItems__CDId__03F0984C">
             <End Role="CDs" EntitySet="CDs" />
             <End Role="OrderItems" EntitySet="OrderItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__OrderItem__Order__5AEE82B9" Association="Self.FK__OrderItem__Order__5AEE82B9">
+          <AssociationSet Name="FK__OrderItem__Order__02FC7413" Association="Self.FK__OrderItem__Order__02FC7413">
             <End Role="Orders" EntitySet="Orders" />
             <End Role="OrderItems" EntitySet="OrderItems" />
           </AssociationSet>

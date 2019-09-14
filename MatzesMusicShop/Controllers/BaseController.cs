@@ -40,6 +40,12 @@ namespace MatzesMusicShop.Controllers
                 return selectedOrderItems = new List<OrderItems>();
             }
         }
+
+        internal void EmptyCart()
+        {
+            this.Session["Cart"] = null;
+        }
+
         /// <summary>
         /// Fügt eine ausgewählte CD der Liste an Orderitems und der Session["Cart"]
         /// hinzu. Ist eine CD bereits in den OrderItems vorhanden, wird lediglich die Eigenschaft
