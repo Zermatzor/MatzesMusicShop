@@ -1,0 +1,47 @@
+﻿@model IEnumerable<MatzesMusicShop.ViewModels.CartItemViewModel>
+@{
+    ViewBag.Title = "Index";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <h1>Warenkorb</h1>
+    <div> 
+        @if (Model != null)
+        {
+            <table class="table">
+                <tr>
+                    <th>Artist</th>
+                    <th>Album</th>
+                    <th>Anzahl</th>
+                    <th>Preis</th>
+                    <th>Aktion</th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Artist)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Album)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Anzahl)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Preis)</td>
+                        <td>
+                            @Html.ActionLink("Add", "AddItem", new { id = item.CdID }) | 
+                            @Html.ActionLink("Remove", "RemoveItem", new { id = item.CdID }) | 
+                            @Html.ActionLink("Remove all", "RemoveAll", new { id = item.CdID })
+                        </td>
+                    </tr>    
+                }
+            </table>
+            <h4>Gesamt: </h4>
+
+        }
+    </div>
+    @Html.ActionLink("Checkout", "Index", "User",null, null)
+</body>
+</html>
