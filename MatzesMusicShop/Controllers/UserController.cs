@@ -25,8 +25,19 @@ namespace MatzesMusicShop.Controllers
             if (ModelState.IsValid)
             {
                 // User
-                user.Id = base.GetNextID(TableName.Users);
-                base.DB.Users.Add(user);
+                Users tempUser = base.DB.Users.Where(u => u.Mail == user.Mail).SingleOrDefault();
+                if (tempUser != null)
+                {
+                    user.Id = tempUser.Id;
+                    tempUser.Nachname = user.Nachname;
+                    tempUser.Vorname = user.Vorname;
+                    tempUser.Adresse = user.Adresse;
+                }
+                else
+                {
+                    user.Id = base.GetNextID(TableName.Users);
+                    base.DB.Users.Add(user);
+                }
                 base.DB.SaveChanges();
                 // Order
                 Orders order = new Orders()
