@@ -1,4 +1,5 @@
 ﻿using MatzesMusicShop.Models;
+using MatzesMusicShop.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,41 +21,52 @@ namespace MatzesMusicShop.Controllers
         // finden Sie unter https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index([Bind(Include = "Vorname,Nachname,Mail,Adresse")] Users user)
+        public ActionResult Index(UserViewModel userViewModel)
         {
             if (ModelState.IsValid)
             {
                 // User
-                Users tempUser = base.DB.Users.Where(u => u.Mail == user.Mail).SingleOrDefault();
+                int userID;
+                Users tempUser = base.DB.Users.Where(u => u.Mail == userViewModel.Mail).SingleOrDefault();
+                // Wenn ein User schon existiert (E-Mail vorhanden)
+                // sollen nur die Daten des alten Users geupdated werden.
                 if (tempUser != null)
                 {
-                    user.Id = tempUser.Id;
-                    tempUser.Nachname = user.Nachname;
-                    tempUser.Vorname = user.Vorname;
-                    tempUser.Adresse = user.Adresse;
+                    userID = tempUser.Id;
+                    tempUser.Nachname = userViewModel.Nachname;
+                    tempUser.Vorname = userViewModel.Vorname;
+                    tempUser.Adresse = userViewModel.Adresse;
                 }
+                // Sonst einen neuen erstellen
                 else
                 {
-                    user.Id = base.GetNextID(TableName.Users);
-                    base.DB.Users.Add(user);
+                    userID = base.GetNextID(TableName.Users);
+                    // Neuen User in Datenbank anlegen
+                    base.DB.Users.Add(new Users() {
+                        Id = userID,
+                        Adresse = userViewModel.Adresse,
+                        Mail = userViewModel.Mail,
+                        Vorname = userViewModel.Vorname,
+                        Nachname = userViewModel.Nachname
+                    });
                 }
                 base.DB.SaveChanges();
-                // Order
+                // Order erstellen und UserID zuweisen
                 Orders order = new Orders()
                 {
                     Id = base.GetNextID(TableName.Orders),
-                    UserId = user.Id
+                    UserId = userID
                 };
                 base.DB.Orders.Add(order);
                 base.DB.SaveChanges();
-                // OrderItems
+                // Jedem OrderItem die OrderID zuweisen
                 List<OrderItems> orderItems = base.GetSelectedOrderItems();
                 foreach (var item in orderItems)
                 {
                     item.Id = base.GetNextID(TableName.OrderItems);
                     item.OrderId = order.Id;
                     item.Orders = order;
-                    item.CDs = null; 
+                    item.CDs = null; // ansonsten wird die CD nochmal angelegt.
                     base.DB.OrderItems.Add(item);
                     base.DB.SaveChanges();
                 }
@@ -63,7 +75,7 @@ namespace MatzesMusicShop.Controllers
                 base.EmptyCart();
                 return RedirectToAction("Index", "Completion", null);
             }
-            return View(user);
+            return View(userViewModel);
         }
     }
 }
