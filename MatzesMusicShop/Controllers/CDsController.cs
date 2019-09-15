@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using MatzesMusicShop.Models;
+using MatzesMusicShop.ViewModels;
 
 namespace MatzesMusicShop.Controllers
 {
@@ -29,12 +30,27 @@ namespace MatzesMusicShop.Controllers
             {
                 return HttpNotFound();
             }
-            ViewModels.AddToCartViewModel viewModel = new ViewModels.AddToCartViewModel()
+            AddToCartViewModel viewModel = new ViewModels.AddToCartViewModel()
             {
                 CD = cDs,
-                Quantity = 0
+                Quantity = 1
             };
 
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Details(AddToCartViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                for (int i = 0; i < viewModel.Quantity; i++)
+                {
+                    base.AddToSelectedOrderItems(viewModel.CD.Id);
+                }
+                return RedirectToAction("Index");
+            }
             return View(viewModel);
         }
 

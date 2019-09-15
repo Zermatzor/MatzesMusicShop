@@ -13,51 +13,39 @@ namespace MatzesMusicShop.Controllers
         // GET: ShoppingCart
         public ActionResult Index()
         {
-            List<OrderItems> orderItems = base.GetSelectedOrderItems();
-            List<CartItemViewModel> itemListViewModel = new List<CartItemViewModel>();
+            List<OrderItems> orderList = base.GetSelectedOrderItems();
+            List<CartItemViewModel> cartItemList = new List<CartItemViewModel>();
 
-            foreach (var item in orderItems)
+            foreach (var order in orderList)
             {
-                CartItemViewModel cViewModel = new CartItemViewModel()
+                cartItemList.Add(new CartItemViewModel()
                 {
-                    CdID = item.CDId,
-                    OrderItemID = item.Id,
-                    Album = item.CDs.Album,
-                    Artist = item.CDs.Artist,
-                    Anzahl = item.Quantity.Value,
-                    Preis = item.Quantity.Value * item.CDs.Price.Value
-                };
-                itemListViewModel.Add(cViewModel);
+                    CdID = order.CDId,
+                    OrderItemID = order.Id,
+                    Album = order.CDs.Album,
+                    Artist = order.CDs.Artist,
+                    Anzahl = order.Quantity.Value,
+                    Preis = order.Quantity.Value * order.CDs.Price.Value
+                });
             }
 
-            return View(itemListViewModel);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult AddToCart(AddToCartViewModel viewModel)
-        {
-            for (int i = 0; i < viewModel.Quantity; i++)
-            {
-                base.AddToSelectedOrderItems(viewModel.CD.Id);
-            }
-            return RedirectToAction("Index", "CDs");
+            return View(cartItemList);
         }
 
         public ActionResult AddItem(int? id)
         {
             base.AddToSelectedOrderItems(id);
-            return RedirectToAction("Index", "ShoppingCart");
+            return RedirectToAction("Index");
         }
         public ActionResult RemoveItem(int? id)
         {
             base.RemoveFromSelectedOrderItems(id);
-            return RedirectToAction("Index", "ShoppingCart");
+            return RedirectToAction("Index");
         }
         public ActionResult RemoveAll(int? id)
         {
             base.RemoveAllFromSelectedOrderItems(id);
-            return RedirectToAction("Index", "ShoppingCart");
+            return RedirectToAction("Index");
         }
     }
 }

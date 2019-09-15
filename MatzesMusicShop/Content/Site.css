@@ -22,3 +22,7 @@ select,
 textarea {
     max-width: 280px;
 }
+
+nav ul li:last-child {
+    float: right;
+}

@@ -8,11 +8,15 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/ShoppingCart.css" rel="stylesheet" type="text/css" />
     <title>Index</title>
+
 </head>
 <body>
+    <hr />
     <h1>Warenkorb</h1>
-    <div> 
+    <hr />
+    <div>
         @if (Model != null)
         {
             <table class="table">
@@ -31,17 +35,21 @@
                         <td>@Html.DisplayFor(modelItem => item.Anzahl)</td>
                         <td>@Html.DisplayFor(modelItem => item.Preis)</td>
                         <td>
-                            @Html.ActionLink("Add", "AddItem", new { id = item.CdID }) | 
-                            @Html.ActionLink("Remove", "RemoveItem", new { id = item.CdID }) | 
+                            @Html.ActionLink("Add", "AddItem", new { id = item.CdID }) |
+                            @Html.ActionLink("Remove", "RemoveItem", new { id = item.CdID }) |
                             @Html.ActionLink("Remove all", "RemoveAll", new { id = item.CdID })
                         </td>
-                    </tr>    
+                    </tr>
                 }
             </table>
-            <h4>Gesamt: </h4>
-
         }
     </div>
-    @Html.ActionLink("Checkout", "Index", "User",null, null)
+    <hr />
+    @{
+        decimal gesamt = 0;
+        Model.ToList().ForEach(c => gesamt += c.Preis);
+    }
+    <h4>Gesamt: @gesamt €</h4>
+    @Html.ActionLink("Checkout", "Index", "User", null, new { @class = "btn btn-primary" })
 </body>
 </html>

@@ -32,12 +32,10 @@ namespace MatzesMusicShop.Controllers
                 Orders order = new Orders()
                 {
                     Id = base.GetNextID(TableName.Orders),
-                    UserId = user.Id,
-                    Users = user
+                    UserId = user.Id
                 };
                 base.DB.Orders.Add(order);
                 base.DB.SaveChanges();
-
                 // OrderItems
                 List<OrderItems> orderItems = base.GetSelectedOrderItems();
                 foreach (var item in orderItems)
@@ -45,17 +43,16 @@ namespace MatzesMusicShop.Controllers
                     item.Id = base.GetNextID(TableName.OrderItems);
                     item.OrderId = order.Id;
                     item.Orders = order;
-                    item.CDs = null;
+                    item.CDs = null; 
                     base.DB.OrderItems.Add(item);
                     base.DB.SaveChanges();
                 }
 
                 base.DB.SaveChanges();
-
                 base.EmptyCart();
+                return RedirectToAction("Index", "Completion", null);
             }
-
-            return RedirectToAction("Index","Completion",null);
+            return View(user);
         }
     }
 }
