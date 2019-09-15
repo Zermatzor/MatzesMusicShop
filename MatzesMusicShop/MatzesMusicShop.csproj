@@ -249,13 +249,8 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\CDs\Create.cshtml" />
-    <Content Include="Views\CDs\Delete.cshtml" />
     <Content Include="Views\CDs\Details.cshtml" />
-    <Content Include="Views\CDs\Edit.cshtml" />
     <Content Include="Views\CDs\Index.cshtml" />
     <Content Include="Views\ShoppingCart\Index.cshtml" />
     <Content Include="Views\Partials\_Navigation.cshtml" />

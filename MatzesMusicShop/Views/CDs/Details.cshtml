@@ -3,51 +3,47 @@
 @{
     ViewBag.Title = "Details";
 }
-
-<h2>Details</h2>
-
+<hr />
+<h2>@Html.DisplayFor(model => model.CD.Artist) - @Html.DisplayFor(model => model.CD.Album)</h2>
+<hr />
 <div>
-    <h4>CDs</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>Artist</dt>
-        <dd>@Html.DisplayFor(model => model.CD.Artist)</dd>
-        <dt>Album</dt>
-        <dd>@Html.DisplayFor(model => model.CD.Album)</dd>
-        <dt>Preis</dt>
-        <dd>@Html.DisplayFor(model => model.CD.Price)</dd>
-        <dt>Beschreibung</dt>
-        <dd>@Html.DisplayFor(model => model.CD.Beschreibung)</dd>
-        <dt>Cover</dt>
-        <dd><img src= @Html.DisplayFor(model => model.CD.PictureUrl) width="300" height="300"/></dd>
-    </dl>
+    <table>
+        <tr>
+            <td>
+                <img src=@Html.DisplayFor(model => model.CD.PictureUrl) width="300" height="300" />
+            </td>
+            <td>
+                <dl class="dl-horizontal">
+                    <dd>@Html.DisplayFor(model => model.CD.Beschreibung)</dd>
+                </dl>
+            </td>
+        </tr>
+    </table>
 </div>
+<hr />
+<h4>Einzelpreis: @Html.DisplayFor(model => model.CD.Price) €</h4>
 <p>
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-    <div class="form-horizontal">
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.CD.Id)
-        @Html.HiddenFor(model => model.CD.Album)
-        @Html.HiddenFor(model => model.CD.Artist)
-        @Html.HiddenFor(model => model.CD.Beschreibung)
-        @Html.HiddenFor(model => model.CD.PictureUrl)
-        @Html.HiddenFor(model => model.CD.Price)
-        <div class="form-group">
-            <label class="control-label col-md-2">Anzahl</label>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.CD.Id)
+            @Html.HiddenFor(model => model.CD.Album)
+            @Html.HiddenFor(model => model.CD.Artist)
+            @Html.HiddenFor(model => model.CD.Beschreibung)
+            @Html.HiddenFor(model => model.CD.PictureUrl)
+            @Html.HiddenFor(model => model.CD.Price)
+            <div class="form-group">
+                <div class="col-md-2">
+                    @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { style="width:100px", type = "number", min = "1", max = "12", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+                    <br />
+                    <input type="submit" value="Add To Cart" class="btn btn-primary" />
+                </div>
             </div>
         </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Add To Cart" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
     }
 
     @Html.ActionLink("Back to List", "Index")

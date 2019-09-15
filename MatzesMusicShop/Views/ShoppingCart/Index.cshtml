@@ -14,7 +14,7 @@
 </head>
 <body>
     <hr />
-    <h1>Warenkorb</h1>
+    <h2>Warenkorb</h2>
     <hr />
     <div>
         @if (Model != null)
@@ -25,7 +25,7 @@
                     <th>Album</th>
                     <th>Anzahl</th>
                     <th>Preis</th>
-                    <th>Aktion</th>
+                    <th></th>
                 </tr>
                 @foreach (var item in Model)
                 {
@@ -33,7 +33,7 @@
                         <td>@Html.DisplayFor(modelItem => item.Artist)</td>
                         <td>@Html.DisplayFor(modelItem => item.Album)</td>
                         <td>@Html.DisplayFor(modelItem => item.Anzahl)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Preis)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Preis) €</td>
                         <td>
                             @Html.ActionLink("Add", "AddItem", new { id = item.CdID }) |
                             @Html.ActionLink("Remove", "RemoveItem", new { id = item.CdID }) |

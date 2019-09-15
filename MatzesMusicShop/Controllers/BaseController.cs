@@ -41,6 +41,9 @@ namespace MatzesMusicShop.Controllers
             }
         }
 
+        /// <summary>
+        /// Setzt das cart-Objekt der Session auf null
+        /// </summary>
         internal void EmptyCart()
         {
             this.Session["Cart"] = null;
@@ -54,10 +57,11 @@ namespace MatzesMusicShop.Controllers
         /// <param name="id">ID der CD</param>
         protected void AddToSelectedOrderItems(int? id)
         {
-            List<OrderItems> items = GetSelectedOrderItems();
-            OrderItems orderItem = items.Find(x => x.CDId == id);
             if (id != null)
             {
+                List<OrderItems> orderItemList = GetSelectedOrderItems();
+                OrderItems orderItem = orderItemList.Find(x => x.CDId == id);
+
                 if (orderItem == null)
                 {
                     orderItem = new OrderItems()
@@ -69,14 +73,14 @@ namespace MatzesMusicShop.Controllers
                         Orders = null,
                         Quantity = 1
                     };
-                    items.Add(orderItem);
+                    orderItemList.Add(orderItem);
                 }
                 else
                 {
                     orderItem.Quantity++;
                 }
-                
-                this.Session["Cart"] = items;
+
+                this.Session["Cart"] = orderItemList;
             }
         }
 
@@ -86,8 +90,8 @@ namespace MatzesMusicShop.Controllers
         /// <param name="id"></param>
         public void RemoveFromSelectedOrderItems(int? id)
         {
-            List<OrderItems> items = GetSelectedOrderItems();
-            OrderItems orderItem = items.Find(x => x.CDId == id.Value);
+            List<OrderItems> orderItemList = GetSelectedOrderItems();
+            OrderItems orderItem = orderItemList.Find(x => x.CDId == id.Value);
 
             if (id != null)
             {
@@ -99,9 +103,9 @@ namespace MatzesMusicShop.Controllers
                     }
                     else
                     {
-                        items.Remove(orderItem);
+                        orderItemList.Remove(orderItem);
                     }
-                    this.Session["Cart"] = items;
+                    this.Session["Cart"] = orderItemList;
                 }
             }
         }
@@ -112,11 +116,11 @@ namespace MatzesMusicShop.Controllers
         /// <param name="id"></param>
         public void RemoveAllFromSelectedOrderItems(int? id)
         {
-            List<OrderItems> items = GetSelectedOrderItems();
+            List<OrderItems> orderItemList = GetSelectedOrderItems();
             if (id != null)
             {
-                items.RemoveAll(x => x.CDId == id.Value);
-                this.Session["Cart"] = items;
+                orderItemList.RemoveAll(x => x.CDId == id.Value);
+                this.Session["Cart"] = orderItemList;
             }
         }
 
@@ -174,10 +178,10 @@ namespace MatzesMusicShop.Controllers
         internal int GetCartItemsCount()
         {
             int count = 0;
-            List<OrderItems> cartItems = (List<OrderItems>)this.Session["Cart"];
-            if (cartItems != null)
+            List<OrderItems> orderItemList = (List<OrderItems>)this.Session["Cart"];
+            if (orderItemList != null)
             {
-                cartItems.ForEach(c => count += c.Quantity.Value);
+                orderItemList.ForEach(c => count += c.Quantity.Value);
             }
             else
             {
@@ -193,10 +197,10 @@ namespace MatzesMusicShop.Controllers
         internal decimal GetCartItemPrice()
         {
             decimal price = 0;
-            if ((List<OrderItems>)this.Session["Cart"] != null)
+            List<OrderItems> orderItemList = (List<OrderItems>)this.Session["Cart"];
+            if (orderItemList != null)
             {
-                ((List<OrderItems>)this.Session["Cart"])
-                    .ForEach(x => price += (x.CDs.Price * x.Quantity).Value);
+                orderItemList.ForEach(x => price += (x.CDs.Price * x.Quantity).Value);
             }
             return price;
         }
