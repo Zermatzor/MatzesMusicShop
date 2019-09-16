@@ -17,6 +17,7 @@ namespace MatzesMusicShop.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CDs()
         {
+            this.Comments = new HashSet<Comments>();
             this.OrderItems = new HashSet<OrderItems>();
         }
     
@@ -27,6 +28,8 @@ namespace MatzesMusicShop.Models
         public Nullable<decimal> Price { get; set; }
         public string Beschreibung { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Comments> Comments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderItems> OrderItems { get; set; }
     }

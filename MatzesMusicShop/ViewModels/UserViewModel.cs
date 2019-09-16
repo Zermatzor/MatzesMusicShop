@@ -17,6 +17,5 @@ namespace MatzesMusicShop.ViewModels
         public string Mail { get; set; }
         [Required]
         public string Adresse { get; set; }
-        public Users user { get; set; }
     }
 }

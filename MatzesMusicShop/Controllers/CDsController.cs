@@ -15,7 +15,28 @@ namespace MatzesMusicShop.Controllers
         // GET: CDs
         public ActionResult Index()
         {
-            return View(base.DB.CDs.ToList());
+            List<CdViewModel> cdViewModelList = new List<CdViewModel>();
+            foreach (CDs cd in base.DB.CDs)
+            {
+                List<int> ratingList = (from Comments c in base.DB.Comments
+                                 where c.CdID == cd.Id && c.Rating != null
+                                 select c.Rating.Value).ToList();
+
+                int avg = 0;
+                if (ratingList.Count > 0)
+                {
+                    ratingList.ForEach(r => avg += r);
+                    avg = avg / ratingList.Count;
+                } 
+
+                cdViewModelList.Add(new CdViewModel()
+                {
+                    CD = cd,
+                    AvgRating = avg
+                });
+            }
+
+            return View(cdViewModelList);
         }
 
         // GET: CDs/Details/5

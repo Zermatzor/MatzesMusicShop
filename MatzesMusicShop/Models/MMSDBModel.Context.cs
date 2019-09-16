@@ -26,6 +26,7 @@ namespace MatzesMusicShop.Models
         }
     
         public virtual DbSet<CDs> CDs { get; set; }
+        public virtual DbSet<Comments> Comments { get; set; }
         public virtual DbSet<OrderItems> OrderItems { get; set; }
         public virtual DbSet<Orders> Orders { get; set; }
         public virtual DbSet<Users> Users { get; set; }

@@ -4,11 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="58abdb84dc464720a3b6b97c7ec26df1" Name="Diagram1">
-        <EntityTypeShape EntityType="MMSDBModel.CDs" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+      <Diagram DiagramId="d46ac2b05f474ab8a2a0bc6503908fce" Name="Diagram1">
+        <EntityTypeShape EntityType="MMSDBModel.CDs" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MMSDBModel.Comments" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="MMSDBModel.OrderItems" Width="1.5" PointX="5.25" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="MMSDBModel.Orders" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="MMSDBModel.Users" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
+        <AssociationConnector Association="MMSDBModel.FK__Comments__CdID__160F4887" ManuallyRouted="false" />
         <AssociationConnector Association="MMSDBModel.FK__OrderItems__CDId__03F0984C" ManuallyRouted="false" />
         <AssociationConnector Association="MMSDBModel.FK__OrderItem__Order__02FC7413" ManuallyRouted="false" />
         <AssociationConnector Association="MMSDBModel.FK__Orders__UserId__5BE2A6F2" ManuallyRouted="false" />

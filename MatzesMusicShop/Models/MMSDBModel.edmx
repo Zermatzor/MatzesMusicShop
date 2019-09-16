@@ -16,6 +16,16 @@
           <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Beschreibung" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="Comments">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="CdID" Type="int" Nullable="false" />
+          <Property Name="Text" Type="nvarchar(max)" />
+          <Property Name="Rating" Type="int" />
+          <Property Name="TimeStamp" Type="datetime" />
+        </EntityType>
         <EntityType Name="OrderItems">
           <Key>
             <PropertyRef Name="Id" />
@@ -42,6 +52,18 @@
           <Property Name="Mail" Type="nvarchar" MaxLength="50" />
           <Property Name="Adresse" Type="nvarchar" MaxLength="2000" />
         </EntityType>
+        <Association Name="FK__Comments__CdID__160F4887">
+          <End Role="CDs" Type="Self.CDs" Multiplicity="1" />
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CDs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="CdID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__OrderItem__Order__02FC7413">
           <End Role="Orders" Type="Self.Orders" Multiplicity="0..1" />
           <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
@@ -80,9 +102,14 @@
         </Association>
         <EntityContainer Name="MMSDBModelStoreContainer">
           <EntitySet Name="CDs" EntityType="Self.CDs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderItems" EntityType="Self.OrderItems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Comments__CdID__160F4887" Association="Self.FK__Comments__CdID__160F4887">
+            <End Role="CDs" EntitySet="CDs" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
           <AssociationSet Name="FK__OrderItem__Order__02FC7413" Association="Self.FK__OrderItem__Order__02FC7413">
             <End Role="Orders" EntitySet="Orders" />
             <End Role="OrderItems" EntitySet="OrderItems" />
@@ -111,7 +138,19 @@
           <Property Name="PictureUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Beschreibung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK__Comments__CdID__160F4887" FromRole="CDs" ToRole="Comments" />
           <NavigationProperty Name="OrderItems" Relationship="Self.FK__OrderItems__CDId__03F0984C" FromRole="CDs" ToRole="OrderItems" />
+        </EntityType>
+        <EntityType Name="Comments">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="CdID" Type="Int32" Nullable="false" />
+          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Rating" Type="Int32" />
+          <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="CDs" Relationship="Self.FK__Comments__CdID__160F4887" FromRole="Comments" ToRole="CDs" />
         </EntityType>
         <EntityType Name="OrderItems">
           <Key>
@@ -144,6 +183,18 @@
           <Property Name="Adresse" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__UserId__5BE2A6F2" FromRole="Users" ToRole="Orders" />
         </EntityType>
+        <Association Name="FK__Comments__CdID__160F4887">
+          <End Role="CDs" Type="Self.CDs" Multiplicity="1" />
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CDs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="CdID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__OrderItems__CDId__03F0984C">
           <End Role="CDs" Type="Self.CDs" Multiplicity="1" />
           <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
@@ -182,9 +233,14 @@
         </Association>
         <EntityContainer Name="MMSDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="CDs" EntityType="Self.CDs" />
+          <EntitySet Name="Comments" EntityType="Self.Comments" />
           <EntitySet Name="OrderItems" EntityType="Self.OrderItems" />
           <EntitySet Name="Orders" EntityType="Self.Orders" />
           <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK__Comments__CdID__160F4887" Association="Self.FK__Comments__CdID__160F4887">
+            <End Role="CDs" EntitySet="CDs" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
           <AssociationSet Name="FK__OrderItems__CDId__03F0984C" Association="Self.FK__OrderItems__CDId__03F0984C">
             <End Role="CDs" EntitySet="CDs" />
             <End Role="OrderItems" EntitySet="OrderItems" />
@@ -213,6 +269,17 @@
                 <ScalarProperty Name="PictureUrl" ColumnName="PictureUrl" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="Beschreibung" ColumnName="Beschreibung" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="MMSDBModel.Comments">
+              <MappingFragment StoreEntitySet="Comments">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CdID" ColumnName="CdID" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
