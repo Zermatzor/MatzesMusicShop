@@ -1,8 +1,6 @@
 ﻿@model MatzesMusicShop.ViewModels.AddToCartViewModel
+<link href="~/Content/Details.css" rel="stylesheet" />
 
-@{
-    ViewBag.Title = "Details";
-}
 <hr />
 <h2>@Html.DisplayFor(model => model.CD.Artist) - @Html.DisplayFor(model => model.CD.Album)</h2>
 <hr />
@@ -10,12 +8,10 @@
     <table>
         <tr>
             <td>
-                <img src=@Html.DisplayFor(model => model.CD.PictureUrl) width="300" height="300" />
+                <img src=@Html.DisplayFor(model => model.CD.PictureUrl) width="200" height="200" />
             </td>
-            <td>
-                <dl class="dl-horizontal">
-                    <dd>@Html.DisplayFor(model => model.CD.Beschreibung)</dd>
-                </dl>
+            <td class="desription">
+                @Html.DisplayFor(model => model.CD.Beschreibung)
             </td>
         </tr>
     </table>
@@ -37,7 +33,7 @@
             @Html.HiddenFor(model => model.CD.Price)
             <div class="form-group">
                 <div class="col-md-2">
-                    @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { style="width:100px", type = "number", min = "1", max = "12", @class = "form-control" } })
+                    @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { style = "width:100px", type = "number", min = "1", max = "12", @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
                     <br />
                     <input type="submit" value="Add To Cart" class="btn btn-primary" />
@@ -45,6 +41,10 @@
             </div>
         </div>
     }
-
     @Html.ActionLink("Back to List", "Index")
+    <hr />
+    @Html.Action("Index", "Comments", new { CdID = Model.CD.Id })
 </p>
+
+
+

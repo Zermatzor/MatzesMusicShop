@@ -15,20 +15,22 @@ namespace MatzesMusicShop.Controllers
         // GET: CDs
         public ActionResult Index()
         {
+            // CdViewModel hat die CD und das Durchschnitts-Rating als Eigenschaften
             List<CdViewModel> cdViewModelList = new List<CdViewModel>();
             foreach (CDs cd in base.DB.CDs)
             {
+                // Liste an Ratings zur CD die nicht null sind ermitteln
                 List<int> ratingList = (from Comments c in base.DB.Comments
                                  where c.CdID == cd.Id && c.Rating != null
                                  select c.Rating.Value).ToList();
-
+                // Mittelwert berechnen
                 int avg = 0;
                 if (ratingList.Count > 0)
                 {
                     ratingList.ForEach(r => avg += r);
-                    avg = avg / ratingList.Count;
+                    avg /= ratingList.Count;
                 } 
-
+                // Viewmodel zur Liste hinzufügen
                 cdViewModelList.Add(new CdViewModel()
                 {
                     CD = cd,

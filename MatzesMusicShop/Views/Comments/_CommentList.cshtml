@@ -1,0 +1,10 @@
+﻿@model IEnumerable<MatzesMusicShop.ViewModels.CommentViewModel>
+
+@foreach (var item in Model)
+{
+    <div>
+        <hr />
+        @Html.EditorFor(model => item.Rating)
+        @Html.EditorFor(model => item.Text)
+    </div>
+}

@@ -151,6 +151,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\CompletionController.cs" />
     <Compile Include="Controllers\PartialsController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
@@ -194,6 +195,7 @@
     <Compile Include="ViewModels\AddToCartViewModel.cs" />
     <Compile Include="ViewModels\CartItemViewModel.cs" />
     <Compile Include="ViewModels\CdViewModel.cs" />
+    <Compile Include="ViewModels\CommentViewModel.cs" />
     <Compile Include="ViewModels\LayoutViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
   </ItemGroup>
@@ -205,6 +207,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\CDs.css" />
+    <Content Include="Content\Details.css" />
     <Content Include="Content\ShoppingCart.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -261,6 +264,9 @@
     <Content Include="Views\Partials\_Navigation.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Completion\Index.cshtml" />
+    <Content Include="Views\Comments\Index.cshtml" />
+    <Content Include="Views\Comments\_CommentForm.cshtml" />
+    <Content Include="Views\Comments\_CommentList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Base\" />

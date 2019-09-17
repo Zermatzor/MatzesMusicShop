@@ -1,62 +1,46 @@
 ﻿@model IEnumerable<MatzesMusicShop.ViewModels.CdViewModel>
 
-@{
-    ViewBag.Title = "Index";
-}
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="~/Content/CDs.css" rel="stylesheet" />
-
 
 <hr />
 <h2>CD's</h2>
 <hr />
 <table class="table">
 
-    <tr>
-        <th></th>
-        <th>Artist</th>
-        <th>Album</th>
-        <th>Price</th>
-        <th>Rating</th>
-        <th></th>
-    </tr>
-
     @foreach (var item in Model)
     {
         <tr>
             <td>
-                <img src="@Html.DisplayFor(modelItem => item.CD.PictureUrl)" width="100", height="100"/>
+                <a href="@Url.Action("Details", new { id = item.CD.Id })">
+                    <img src="@Url.Content(item.CD.PictureUrl)" width="100" , height="100" />
+                </a>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CD.Artist)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CD.Album)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CD.Price) €
-            </td>
-            <td>
-                @for (int i = 1; i < 6; i++)
-                {
-                    double avg = Convert.ToDouble(item.AvgRating);
-                    if (i - avg > 0.75 )
+                <a href="@Url.Action("Details", new { id = item.CD.Id })">
+                    <p>@Html.DisplayFor(modelItem => item.CD.Artist) - @Html.DisplayFor(modelItem => item.CD.Album)</p>
+                </a>
+                <p>
+                    @for (int i = 1; i < 6; i++)
                     {
-                        <i class="fa fa-star-o"></i>
+                        double avg = Convert.ToDouble(item.AvgRating);
+                        if (i - avg > 0.75) // leerer Stern
+                        {
+                            <i class="fa fa-star-o"></i>
+                        }
+                        else if (i - avg > 0.25) // halber Stern
+                        {
+                            <i class="fa fa-star-half-o"></i>
+                        }
+                        else // voller Stern
+                        {
+                            <i class="fa fa-star"></i>
+                        }
                     }
-                    else if (i - avg > 0.25)
-                    {
-                        <i class="fa fa-star-half-o"></i>
-                    }
-                    else
-                    {
-                        <i class="fa fa-star"></i>
-                    }
-                }
-            </td>
-            <td>
-                @Html.ActionLink("Details", "Details", new { id = item.CD.Id })
+                </p>
+                <p>
+                    @Html.DisplayFor(modelItem => item.CD.Price) €
+                </p>
             </td>
         </tr>
     }
