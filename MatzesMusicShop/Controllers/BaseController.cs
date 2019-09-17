@@ -13,7 +13,7 @@ namespace MatzesMusicShop.Controllers
     /// <summary>
     /// Enum für die Tabellen-Namen. 
     /// </summary>
-    public enum TableName { CDs, OrderItems, Orders, Users}
+    public enum TableName { CDs, OrderItems, Orders, Users, Comments }
 
     /// <summary>
     /// Beinhaltet Controller-Member die von mehreren Controllern benötigt werden
@@ -163,6 +163,14 @@ namespace MatzesMusicShop.Controllers
                         if (DB.Users.Count() > 0)
                         {
                             max = DB.Users.Max(x => x.Id);
+                        }
+                        break;
+                    }
+                case TableName.Comments:
+                    {
+                        if (DB.Comments.Count() > 0)
+                        {
+                            max = DB.Comments.Max(x => x.Id);
                         }
                         break;
                     }

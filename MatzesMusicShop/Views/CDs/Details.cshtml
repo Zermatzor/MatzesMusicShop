@@ -1,6 +1,10 @@
 ﻿@model MatzesMusicShop.ViewModels.AddToCartViewModel
 <link href="~/Content/Details.css" rel="stylesheet" />
 
+@{
+    int tempID = Model.CD.Id;
+}
+
 <hr />
 <h2>@Html.DisplayFor(model => model.CD.Artist) - @Html.DisplayFor(model => model.CD.Album)</h2>
 <hr />
@@ -43,7 +47,9 @@
     }
     @Html.ActionLink("Back to List", "Index")
     <hr />
-    @Html.Action("Index", "Comments", new { CdID = Model.CD.Id })
+    @Html.Action("CommentForm", "Comments")
+    <hr />
+    @Html.Action("CommentList", "Comments", new { tempID })
 </p>
 
 

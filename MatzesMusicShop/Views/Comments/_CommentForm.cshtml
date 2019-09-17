@@ -1,7 +1,27 @@
 ﻿@model MatzesMusicShop.ViewModels.CommentViewModel
 
+@{
+    List <SelectListItem> RatingItems = new List<SelectListItem>()
+    {
+        new SelectListItem(){
+            Text = "5 Sterne", Value = "5"
+        },
+        new SelectListItem(){
+            Text = "4 Sterne", Value = "4"
+        },
+        new SelectListItem(){
+            Text = "3 Sterne", Value = "3"
+        },
+        new SelectListItem(){
+            Text = "2 Sterne", Value = "2"
+        },
+        new SelectListItem(){
+            Text = "1 Sterne", Value = "1"
+        }
+    };
+}
 <p>
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("CommentForm", "Comments"))
     {
         @Html.AntiForgeryToken()
 
@@ -9,10 +29,18 @@
             <h4>Kommentare</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.CdID)
             <div class="form-group">
                 @Html.LabelFor(model => model.Rating, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.Rating, Model.RatingItems, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.DropDownListFor(model => model.Rating, RatingItems, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Rating, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Text, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Text, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Rating, "", new { @class = "text-danger" })
                 </div>
             </div>

@@ -9,6 +9,6 @@ namespace MatzesMusicShop.ViewModels
     public class CdViewModel
     {
         public CDs CD { get; set; }
-        public decimal AvgRating { get; set; }
+        public double AvgRating { get; set; }
     }
 }

@@ -24,7 +24,7 @@ namespace MatzesMusicShop.Controllers
                                  where c.CdID == cd.Id && c.Rating != null
                                  select c.Rating.Value).ToList();
                 // Mittelwert berechnen
-                int avg = 0;
+                double avg = 0;
                 if (ratingList.Count > 0)
                 {
                     ratingList.ForEach(r => avg += r);

@@ -23,7 +23,7 @@
                 <p>
                     @for (int i = 1; i < 6; i++)
                     {
-                        double avg = Convert.ToDouble(item.AvgRating);
+                        double avg = item.AvgRating;
                         if (i - avg > 0.75) // leerer Stern
                         {
                             <i class="fa fa-star-o"></i>

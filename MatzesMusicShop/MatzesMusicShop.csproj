@@ -264,7 +264,6 @@
     <Content Include="Views\Partials\_Navigation.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Completion\Index.cshtml" />
-    <Content Include="Views\Comments\Index.cshtml" />
     <Content Include="Views\Comments\_CommentForm.cshtml" />
     <Content Include="Views\Comments\_CommentList.cshtml" />
   </ItemGroup>
