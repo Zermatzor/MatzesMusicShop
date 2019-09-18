@@ -34,10 +34,11 @@ namespace MatzesMusicShop.Controllers
             return RedirectToAction("Details", "CDs", new { id = cViewModel.CdID });
         }
 
-        public ActionResult CommentList(int? CdID)
+        public ActionResult GetComments()
         {
+            int id = (int)Session["CdID"];
             List<CommentViewModel> commentViewModelList = new List<CommentViewModel>();
-            foreach (Comments comment in base.DB.Comments.Where(c=> c.CdID == CdID))
+            foreach (Comments comment in base.DB.Comments.Where(c=> c.CdID == id))
             {
                 commentViewModelList.Add(new CommentViewModel()
                 {
@@ -46,7 +47,7 @@ namespace MatzesMusicShop.Controllers
                     Text = comment.Text
                 });
             }
-            return PartialView("_CommentList", commentViewModelList);
+            return Json(commentViewModelList);
         }
     }
 }

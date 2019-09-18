@@ -49,8 +49,38 @@
     <hr />
     @Html.Action("CommentForm", "Comments")
     <hr />
-    @Html.Action("CommentList", "Comments", new { tempID })
+    <div id="comments">
+    </div>
+
+    <!--Html.Action("CommentList", "Comments")-->
 </p>
 
+@section Scripts {
+    <script>
+        var interval = 5; // 5 seconds
+        interval = interval * 1000;
+        var obj = {}; // specify the parameters
+        window.setInterval(poll, interval);
+        function poll() {
+            $.ajax({
+                url: "/Comments/GetComments",
+                type: "POST",
+                data: obj,
+                dataType: "json",
+                traditional: true,
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    $.each(data, function (index) {
+                        $("#comments").append("<p>" + data[index].Text + "</p>");
+                    });
+                },
+                error: function () {
+                    alert("An error has occured!!!");
+                }
+            });
+        }
+
+    </script>
+}
 
 

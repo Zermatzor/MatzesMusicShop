@@ -48,6 +48,7 @@ namespace MatzesMusicShop.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            Session["CdID"] = id;
             CDs cDs = base.DB.CDs.Find(id);
             if (cDs == null)
             {
