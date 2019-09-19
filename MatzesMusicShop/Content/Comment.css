@@ -3,11 +3,10 @@
 }
 
 .datum{
-    text-align:right;
+    font-size:10px;
 }
 
 .title{
-    text-align:center;
     font-weight:bold;
 }
 .fa-star {
@@ -20,4 +19,10 @@
 
 .fa-star-o {
     color: gold;
+}
+
+.commentText {
+    padding: 10px 0px 10px 0px;
+    width: 500px;
+    word-wrap: break-word;
 }

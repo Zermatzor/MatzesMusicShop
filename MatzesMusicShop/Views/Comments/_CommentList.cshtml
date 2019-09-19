@@ -3,14 +3,13 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="~/Content/Comment.css" rel="stylesheet" />
 
-
+<h4>Kommentare</h4>
 @foreach (var item in Model)
 {
     <hr />
-    <h4 class="Title">@Html.DisplayFor(modelItem => item.Title)</h4>
-    <hr />
-    <p>
-        <div class="rating">
+    <div class="glyphicon glyphicon-user"> Anonym</div>
+    <div>
+        <span class="rating">
             @for (int i = 0; i < 5; i++)
             {
                 if (item.Rating > i)
@@ -22,10 +21,10 @@
                     <i class="fa fa-star-o"></i>
                 }
             }
-        </div>
-        <div class="datum">@Html.DisplayFor(modelItem => item.DateTime)</div>
-    </p>
-    <p>
-        @Html.DisplayFor(modelItem => item.Text)
-    </p>
+        </span>
+        <span class="title"> @Html.DisplayFor(modelItem => item.Title)</span>
+    </div>
+    <div class="datum">@Html.DisplayFor(modelItem => item.Date)</div>
+    <div class="commentText">@Html.DisplayFor(modelItem => item.Text)</div>
 }
+

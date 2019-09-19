@@ -1,9 +1,6 @@
 ﻿@model MatzesMusicShop.ViewModels.AddToCartViewModel
-<link href="~/Content/Details.css" rel="stylesheet" />
 
-@{
-    int tempID = Model.CD.Id;
-}
+<link href="~/Content/Details.css" rel="stylesheet" />
 
 <hr />
 <h2>@Html.DisplayFor(model => model.CD.Artist) - @Html.DisplayFor(model => model.CD.Album)</h2>
@@ -22,42 +19,62 @@
 </div>
 <hr />
 <h4>Einzelpreis: @Html.DisplayFor(model => model.CD.Price) €</h4>
-<p>
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-        <div class="form-horizontal">
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.HiddenFor(model => model.CD.Id)
-            @Html.HiddenFor(model => model.CD.Album)
-            @Html.HiddenFor(model => model.CD.Artist)
-            @Html.HiddenFor(model => model.CD.Beschreibung)
-            @Html.HiddenFor(model => model.CD.PictureUrl)
-            @Html.HiddenFor(model => model.CD.Price)
-            <div class="form-group">
-                <div class="col-md-2">
-                    @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { style = "width:100px", type = "number", min = "1", max = "12", @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
-                    <br />
-                    <input type="submit" value="Add To Cart" class="btn btn-primary" />
+<!-- Modal -->
+<hr />
+<div>
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add to cart</button>
+</div>
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Zum Warenkorb hinzufügen</h4>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body" id="form-container">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-horizontal">
+                            <hr />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.CD.Id)
+                            @Html.HiddenFor(model => model.CD.Album)
+                            @Html.HiddenFor(model => model.CD.Artist)
+                            @Html.HiddenFor(model => model.CD.Beschreibung)
+                            @Html.HiddenFor(model => model.CD.PictureUrl)
+                            @Html.HiddenFor(model => model.CD.Price)
+                            <div class="form-group">
+                                <div class="col-md-2">
+                                    @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { style = "width:100px", type = "number", min = "1", max = "12", @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+                                    <br />
+                                    <input type="submit" value="Add To Cart" class="btn btn-primary" />
+                                </div>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
         </div>
-    }
-    @Html.ActionLink("Back to List", "Index")
-    <hr />
-    @Html.Action("CommentForm", "Comments")
-    <hr />
-    <div id="comments">
     </div>
-
-    <!--Html.Action("CommentList", "Comments")-->
-</p>
+</div>
+<br />
+@Html.ActionLink("Back to List", "Index")
+<hr />
+@Html.Action("CommentForm", "Comments")
+<hr />
+<div id="comments">
+</div>
+<!--Html.Action("CommentList", "Comments")-->
 
 @section Scripts {
     <script>
-        var interval = 0;
+        var interval = 1000;
         var obj = {}; // specify the parameters
         var tempData = {};
 
@@ -68,7 +85,7 @@
                 url: "/Comments/CommentList",
                 type: "GET",
                 data: obj,
-                success: function (data) { 
+                success: function (data) {
                     if (data != tempData) { // Wenn die Daten sich unterscheiden
                         tempData = data;
                         $("#comments").html(data);

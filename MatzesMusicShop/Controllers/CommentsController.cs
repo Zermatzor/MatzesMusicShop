@@ -32,6 +32,7 @@ namespace MatzesMusicShop.Controllers
                 base.DB.Comments.Add(comment);
                 base.DB.SaveChanges();
             }
+            //return View("~/Views/CDs/Details.cshtml", new { id = cViewModel.CdID });
             return RedirectToAction("Details", "CDs", new { id = cViewModel.CdID });
         }
         
@@ -47,7 +48,7 @@ namespace MatzesMusicShop.Controllers
                     Title = comment.Title,
                     Rating = comment.Rating.Value,
                     Text = comment.Text,
-                    DateTime = comment.TimeStamp.Value
+                    Date = comment.TimeStamp.Value.ToShortDateString()
                 });
             }
             return PartialView("_CommentList", commentViewModelList);

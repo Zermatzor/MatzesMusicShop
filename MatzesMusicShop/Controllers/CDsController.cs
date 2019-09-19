@@ -54,13 +54,18 @@ namespace MatzesMusicShop.Controllers
             {
                 return HttpNotFound();
             }
-            AddToCartViewModel viewModel = new ViewModels.AddToCartViewModel()
+            DetailViewModel viewModel = new DetailViewModel
             {
-                CD = cDs,
-                Quantity = 1
+                AddToCartViewModel = new AddToCartViewModel()
+                {
+                    CD = cDs,
+                    Quantity = 1
+                },
+                CommentViewModel = new CommentViewModel(),
+                CommentListViewModel = new List<CommentViewModel>()
             };
 
-            return View(viewModel);
+            return View(viewModel.AddToCartViewModel);
         }
 
         [HttpPost]
