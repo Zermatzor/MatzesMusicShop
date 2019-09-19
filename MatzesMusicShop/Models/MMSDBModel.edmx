@@ -22,6 +22,7 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="CdID" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" />
           <Property Name="Text" Type="nvarchar(max)" />
           <Property Name="Rating" Type="int" />
           <Property Name="TimeStamp" Type="datetime" />
@@ -52,7 +53,7 @@
           <Property Name="Mail" Type="nvarchar" MaxLength="50" />
           <Property Name="Adresse" Type="nvarchar" MaxLength="2000" />
         </EntityType>
-        <Association Name="FK__Comments__CdID__160F4887">
+        <Association Name="FK__Comments__CdID__29221CFB">
           <End Role="CDs" Type="Self.CDs" Multiplicity="1" />
           <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
           <ReferentialConstraint>
@@ -106,7 +107,7 @@
           <EntitySet Name="OrderItems" EntityType="Self.OrderItems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Comments__CdID__160F4887" Association="Self.FK__Comments__CdID__160F4887">
+          <AssociationSet Name="FK__Comments__CdID__29221CFB" Association="Self.FK__Comments__CdID__29221CFB">
             <End Role="CDs" EntitySet="CDs" />
             <End Role="Comments" EntitySet="Comments" />
           </AssociationSet>
@@ -138,7 +139,7 @@
           <Property Name="PictureUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Beschreibung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Comments" Relationship="Self.FK__Comments__CdID__160F4887" FromRole="CDs" ToRole="Comments" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK__Comments__CdID__29221CFB" FromRole="CDs" ToRole="Comments" />
           <NavigationProperty Name="OrderItems" Relationship="Self.FK__OrderItems__CDId__03F0984C" FromRole="CDs" ToRole="OrderItems" />
         </EntityType>
         <EntityType Name="Comments">
@@ -147,10 +148,11 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="CdID" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Rating" Type="Int32" />
           <Property Name="TimeStamp" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="CDs" Relationship="Self.FK__Comments__CdID__160F4887" FromRole="Comments" ToRole="CDs" />
+          <NavigationProperty Name="CDs" Relationship="Self.FK__Comments__CdID__29221CFB" FromRole="Comments" ToRole="CDs" />
         </EntityType>
         <EntityType Name="OrderItems">
           <Key>
@@ -183,7 +185,7 @@
           <Property Name="Adresse" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__UserId__5BE2A6F2" FromRole="Users" ToRole="Orders" />
         </EntityType>
-        <Association Name="FK__Comments__CdID__160F4887">
+        <Association Name="FK__Comments__CdID__29221CFB">
           <End Role="CDs" Type="Self.CDs" Multiplicity="1" />
           <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
           <ReferentialConstraint>
@@ -237,7 +239,7 @@
           <EntitySet Name="OrderItems" EntityType="Self.OrderItems" />
           <EntitySet Name="Orders" EntityType="Self.Orders" />
           <EntitySet Name="Users" EntityType="Self.Users" />
-          <AssociationSet Name="FK__Comments__CdID__160F4887" Association="Self.FK__Comments__CdID__160F4887">
+          <AssociationSet Name="FK__Comments__CdID__29221CFB" Association="Self.FK__Comments__CdID__29221CFB">
             <End Role="CDs" EntitySet="CDs" />
             <End Role="Comments" EntitySet="Comments" />
           </AssociationSet>
@@ -277,6 +279,7 @@
               <MappingFragment StoreEntitySet="Comments">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="CdID" ColumnName="CdID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Text" ColumnName="Text" />
                 <ScalarProperty Name="Rating" ColumnName="Rating" />
                 <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />

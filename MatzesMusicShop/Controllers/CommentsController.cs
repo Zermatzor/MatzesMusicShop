@@ -24,6 +24,7 @@ namespace MatzesMusicShop.Controllers
                 {
                     Id = base.GetNextID(TableName.Comments),
                     CdID = cViewModel.CdID,
+                    Title = cViewModel.Title,
                     Rating = cViewModel.Rating,
                     Text = cViewModel.Text,
                     TimeStamp = DateTime.Now
@@ -33,8 +34,8 @@ namespace MatzesMusicShop.Controllers
             }
             return RedirectToAction("Details", "CDs", new { id = cViewModel.CdID });
         }
-
-        public ActionResult GetComments()
+        
+        public ActionResult CommentList()
         {
             int id = (int)Session["CdID"];
             List<CommentViewModel> commentViewModelList = new List<CommentViewModel>();
@@ -43,11 +44,13 @@ namespace MatzesMusicShop.Controllers
                 commentViewModelList.Add(new CommentViewModel()
                 {
                     CdID = comment.CdID,
+                    Title = comment.Title,
                     Rating = comment.Rating.Value,
-                    Text = comment.Text
+                    Text = comment.Text,
+                    DateTime = comment.TimeStamp.Value
                 });
             }
-            return Json(commentViewModelList);
+            return PartialView("_CommentList", commentViewModelList);
         }
     }
 }

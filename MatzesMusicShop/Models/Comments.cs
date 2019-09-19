@@ -16,6 +16,7 @@ namespace MatzesMusicShop.Models
     {
         public int Id { get; set; }
         public int CdID { get; set; }
+        public string Title { get; set; }
         public string Text { get; set; }
         public Nullable<int> Rating { get; set; }
         public Nullable<System.DateTime> TimeStamp { get; set; }

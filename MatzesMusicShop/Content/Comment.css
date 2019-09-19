@@ -1,0 +1,23 @@
+﻿.rating{
+    text-align:left;
+}
+
+.datum{
+    text-align:right;
+}
+
+.title{
+    text-align:center;
+    font-weight:bold;
+}
+.fa-star {
+    color: gold;
+}
+
+.fa-star-half-o {
+    color: gold;
+}
+
+.fa-star-o {
+    color: gold;
+}

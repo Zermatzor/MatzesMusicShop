@@ -57,29 +57,25 @@
 
 @section Scripts {
     <script>
-        var interval = 5; // 5 seconds
-        interval = interval * 1000;
+        var interval = 0;
         var obj = {}; // specify the parameters
+        var tempData = {};
+
         window.setInterval(poll, interval);
         function poll() {
+            interval = 10000;
             $.ajax({
-                url: "/Comments/GetComments",
-                type: "POST",
+                url: "/Comments/CommentList",
+                type: "GET",
                 data: obj,
-                dataType: "json",
-                traditional: true,
-                contentType: "application/json; charset=utf-8",
-                success: function (data) {
-                    $.each(data, function (index) {
-                        $("#comments").append("<p>" + data[index].Text + "</p>");
-                    });
-                },
-                error: function () {
-                    alert("An error has occured!!!");
+                success: function (data) { 
+                    if (data != tempData) { // Wenn die Daten sich unterscheiden
+                        tempData = data;
+                        $("#comments").html(data);
+                    }
                 }
             });
         }
-
     </script>
 }
 

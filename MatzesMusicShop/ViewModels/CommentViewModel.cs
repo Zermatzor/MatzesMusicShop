@@ -12,6 +12,9 @@ namespace MatzesMusicShop.ViewModels
         public int CdID { get; set; }
         [Required]
         public string Text { get; set; }
+        [Required]
+        public string Title { get; set; }
         public int Rating { get; set; }
+        public DateTime DateTime { get; set; }
     }
 }

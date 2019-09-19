@@ -207,6 +207,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\CDs.css" />
+    <Content Include="Content\Comment.css" />
     <Content Include="Content\Details.css" />
     <Content Include="Content\ShoppingCart.css" />
     <Content Include="favicon.ico" />
@@ -265,6 +266,7 @@
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Completion\Index.cshtml" />
     <Content Include="Views\Comments\_CommentForm.cshtml" />
+    <Content Include="Views\Comments\_CommentList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Base\" />
