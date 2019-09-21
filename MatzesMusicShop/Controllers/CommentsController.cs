@@ -12,6 +12,14 @@ namespace MatzesMusicShop.Controllers
     {
         public ActionResult CommentForm(int? id)
         {
+            if (id == null)
+            {
+                id = (int)Session["CdID"];
+            }
+            else
+            {
+                Session["CdID"] = id;
+            }
             return PartialView("_CommentForm", new CommentViewModel() { CdID = id.Value });
         }
 

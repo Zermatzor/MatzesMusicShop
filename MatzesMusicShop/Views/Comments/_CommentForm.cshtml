@@ -20,7 +20,9 @@
         }
     };
 }
-@using (Html.BeginForm("CommentForm", "Comments"))
+@using (Ajax.BeginForm("CommentForm", "Comments", new AjaxOptions() {
+    OnSuccess = "showSuccess"
+}))
 {
     @Html.AntiForgeryToken()
 

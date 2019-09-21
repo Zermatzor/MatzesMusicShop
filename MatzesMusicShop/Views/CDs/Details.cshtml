@@ -1,6 +1,7 @@
 ﻿@model MatzesMusicShop.ViewModels.AddToCartViewModel
 
 <link href="~/Content/Details.css" rel="stylesheet" />
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <hr />
 <h2>@Html.DisplayFor(model => model.CD.Artist) - @Html.DisplayFor(model => model.CD.Album)</h2>
@@ -19,58 +20,19 @@
 </div>
 <hr />
 <h4>Einzelpreis: @Html.DisplayFor(model => model.CD.Price) €</h4>
-<!-- Modal -->
 <hr />
-<div>
-    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add to cart</button>
-</div>
-<div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Zum Warenkorb hinzufügen</h4>
-            </div>
-            <div class="modal-body">
-                <div class="modal-body" id="form-container">
-                    @using (Html.BeginForm())
-                    {
-                        @Html.AntiForgeryToken()
-                        <div class="form-horizontal">
-                            <hr />
-                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                            @Html.HiddenFor(model => model.CD.Id)
-                            @Html.HiddenFor(model => model.CD.Album)
-                            @Html.HiddenFor(model => model.CD.Artist)
-                            @Html.HiddenFor(model => model.CD.Beschreibung)
-                            @Html.HiddenFor(model => model.CD.PictureUrl)
-                            @Html.HiddenFor(model => model.CD.Price)
-                            <div class="form-group">
-                                <div class="col-md-2">
-                                    @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { style = "width:100px", type = "number", min = "1", max = "12", @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
-                                    <br />
-                                    <input type="submit" value="Add To Cart" class="btn btn-primary" />
-                                </div>
-                            </div>
-                        </div>
-                    }
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
+@Html.Partial("_AddToCartModal", Model)
 <br />
 @Html.ActionLink("Back to List", "Index")
 <hr />
-@Html.Action("CommentForm", "Comments")
+<div>
+    <button type="button" id="showCommentForm" class="btn btn-info btn-lg">Neuer Kommentar</button>
+</div>
+<div id="commentForm">
+</div>
 <hr />
 <div id="comments">
 </div>
-<!--Html.Action("CommentList", "Comments")-->
 
 @section Scripts {
     <script>
@@ -93,6 +55,40 @@
                 }
             });
         }
+        
+        $("#showCommentForm").click(function () {
+            $.ajax({
+                url: "/Comments/CommentForm",
+                type: "GET",
+                success: function (data) {
+                    $("#commentForm").html(data);
+                }
+            });
+        });
+
+        // this is the id of the form
+        $("#AddToCartForm").submit(function (e) {
+            e.preventDefault(); // avoid to execute the actual submit of the form.
+
+            var form = $(this);
+            var url = form.attr('action');
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: form.serialize(), // serializes the form's elements.
+                success: function (data) {
+                    $("#addToCartControls").hide();
+                    $("#addToCartMessage").show();
+                }
+            });
+        });
+
+        $("#msgButton").click(function () {
+            $("#addToCartControls").show();
+            $("#addToCartMessage").hide();
+            window.location = "http://localhost:57958/CDs";
+        });
     </script>
 }
 
