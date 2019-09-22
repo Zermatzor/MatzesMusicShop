@@ -39,12 +39,23 @@
 
 @section Scripts {
     <script>
-        var interval = 1000;
-        var obj = {}; // specify the parameters
-        var tempData = {};
+        // Start-Intervall für die Polling-Funktion
+        var interval = 1000; 
+
+        // default parameters
+        var obj = {};        
+
+        // Daten für den Abgleich, ob die Kommentarliste erneuert werden muss
+        var tempData = {}; 
+
+        // Flag, ob die Kommentar-Eingabe sichtbar ist
         var commentExpanded = false;
 
+        // Startet die Timer-Funktion
         window.setInterval(poll, interval);
+
+        // Timerfunktion
+        // Updated im 10-Sekunden-Intervall die Kommentarliste, wenn diese sich geändert hat.
         function poll() {
             interval = 10000;
             $.ajax({
@@ -52,41 +63,46 @@
                 type: "GET",
                 data: obj,
                 success: function (data) {
-                    if (data != tempData) { // Wenn die Daten sich unterscheiden
-                        tempData = data;
-                        $("#comments").html(data);
+                    if (data != tempData) {         // Wenn die Daten sich unterscheiden
+                        tempData = data; // wird die neue Liste für den nächsten Abgleich gespeichert
+                        $("#comments").html(data);  // danach werden die Daten in die comment-div geladen
                     }
                 }
             });
         }
-        
+
+        // Button-Click für das Einblenden der Kommentar-Form
         $("#showCommentForm").click(function () {
             expandCommentForm(!commentExpanded);
         });
 
+        // Form-Submit für die Kommentar-Eingabe
         $("#CommentForm").submit(function (e) {
-            e.preventDefault(); // avoid to execute the actual submit of the form.
+            e.preventDefault(); // verhindert den default Form-Submit
 
             var form = $(this);
             var url = "/Comments/CommentForm";
             $.ajax({
                 type: "POST",
                 url: url,
-                data: form.serialize(), // serializes the form's elements.
+                data: form.serialize(),         // Serialisiert die Eingabe-elemente der Form.
                 success: function (data) {
-                    expandCommentForm(false);
+                    expandCommentForm(false);   // Klappt die Kommentar-Form wieder ein.
                 }
             });
         });
 
+        // Klappt die Kommentar-Form auf wenn "expand == true"
+        // und zu wenn "expand == false"
+        // Setzt zusätzlich das Icon des Buttons anhand des Klapp-Zustands
         function expandCommentForm(expand) {
-            if (expand) {
+            if (expand) {   // Button-Pfeil nach oben
                 $("#showCommentForm i").removeClass("glyphicon glyphicon-chevron-down");
                 $("#showCommentForm i").addClass("glyphicon glyphicon-chevron-up");
                 $("#commentFormDiv").show();
                 commentExpanded = true;
             }
-            else {
+            else {          // Button-Pfeil nach unten
                 $("#showCommentForm i").removeClass("glyphicon glyphicon-chevron-up");
                 $("#showCommentForm i").addClass("glyphicon glyphicon-chevron-down");
                 $("#commentFormDiv").hide();
@@ -94,29 +110,35 @@
             }
         };
 
-        // this is the id of the form
+        // Form-Submit für den Modalen Warenkorb-Dialog
         $("#AddToCartForm").submit(function (e) {
-            e.preventDefault(); // avoid to execute the actual submit of the form.
+            e.preventDefault(); // verhindert den default Form-Submit
 
-            var form = $(this);
+            var form = $(this); 
             var url = form.attr('action');
 
             $.ajax({
                 type: "POST",
                 url: url,
-                data: form.serialize(), // serializes the form's elements.
+                data: form.serialize(),     // Serialisiert die Eingabe-elemente der Form.
                 success: function (data) {
+                    // Beim erfolgreichen POST wird im Anschluss die Mitteilung in dem gleichen Dialog
+                    // in Form eines Div-Austausches angezeigt. 
                     $("#addToCartControls").hide();
                     $("#addToCartMessage").show();
                 }
             });
         });
 
+        // Wenn der modale Dialog geschlossen wird (ob man daneben klickt oder den Button betätigt ist egal),
+        // Wird der Div-Bereich mit den Steuerelementen wieder in der Form aktiviert (Für den nächsten Start).
         $('#myModal').on('hidden.bs.modal', function () {
             $("#addToCartControls").show();
             $("#addToCartMessage").hide();
         });
 
+        // Button-Event für die Bestätigung des Erfolgs-Message-Dialogs.
+        // Seitenwechsel zur Produktliste.
         $("#msgButton").click(function () {
             window.location = "http://localhost:57958/CDs";
         });

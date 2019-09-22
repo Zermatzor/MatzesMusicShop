@@ -44,7 +44,7 @@ namespace MatzesMusicShop.Controllers
             //return View("~/Views/CDs/Details.cshtml", new { id = cViewModel.CdID });
             return RedirectToAction("Details", "CDs", new { id = cViewModel.CdID });
         }
-        
+
         public ActionResult CommentList()
         {
             int id = (int)Session["CdID"];
@@ -61,7 +61,9 @@ namespace MatzesMusicShop.Controllers
                     DateTime = comment.TimeStamp.Value
                 });
             }
-            return PartialView("_CommentList", commentViewModelList.OrderByDescending(x => x.DateTime));
+            commentViewModelList = commentViewModelList.OrderByDescending(x => x.DateTime).ToList();
+
+            return PartialView("_CommentList", commentViewModelList);
         }
     }
 }

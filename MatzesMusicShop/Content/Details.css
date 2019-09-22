@@ -7,7 +7,6 @@
 .atcContent{
     height:200px;
     text-align:center;
-    vertical-align:middle;
     align-items:center;
 }
 
@@ -26,7 +25,9 @@
 
 #msgButton {
     position: absolute;
-    left: 10px;
+    left: 50%;
+    width: 200px;
+    margin-left: -100px;
     bottom: 10px;
 }
 
@@ -47,14 +48,15 @@
 }
 
 .atcDropDown {
-    width: 70px;
-    font-size: 30px;
+    width: auto;
+    font-size: 20px;
     height:auto;
 }
 
 .atcLabel {
     width: 100px;
     font-size: 30px;
+    text-align: center;
 }
 
 .cfRatingControls {
@@ -73,7 +75,15 @@
 .cfTitleTextBox {
 }
 
+.cfSubmit {
+    width: 200px;
+}
+
+button {
+    width: 200px;
+}
+
 textArea {
-    width: 100%;
-    height:250px;
+    min-width: 100%;
+    height: 250px;
 }

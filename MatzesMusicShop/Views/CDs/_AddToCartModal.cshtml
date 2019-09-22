@@ -28,10 +28,13 @@
                             @Html.HiddenFor(model => model.CD.Price)
                             <div id="addToCartControls" class="form-group form-inline" style="display:block">
                                 <div class="atcContent">
-                                    <label class="atcLabel">Anzahl</label>
-                                    @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { style = "width:100px", type = "number", min = "1", max = "12", @class = "form-control atcDropDown" } })
-                                    @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
-                                    <br />
+                                    <div>
+                                        <label class="atcLabel">Anzahl</label>
+                                    </div>
+                                    <div>
+                                        @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { type = "number", min = "1", max = "12", @class = "atcLabel" } })
+                                        @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+                                    </div>
                                     <input id="atcSubmit" type="submit" value="hinzufügen" class="btn btn-primary atcButton" />
                                     <button id="atcClose" type="button" class="btn btn-primary atcButton" data-dismiss="modal">Zurück</button>
                                 </div>
