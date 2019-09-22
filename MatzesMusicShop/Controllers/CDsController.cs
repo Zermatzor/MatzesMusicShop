@@ -61,11 +61,11 @@ namespace MatzesMusicShop.Controllers
                     CD = cDs,
                     Quantity = 1
                 },
-                CommentViewModel = new CommentViewModel(),
+                CommentViewModel = new CommentViewModel() { CdID = id.Value },
                 CommentListViewModel = new List<CommentViewModel>()
             };
 
-            return View(viewModel.AddToCartViewModel);
+            return View(viewModel);
         }
 
         [HttpPost]

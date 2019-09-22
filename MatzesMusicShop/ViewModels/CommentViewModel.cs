@@ -16,5 +16,6 @@ namespace MatzesMusicShop.ViewModels
         public string Title { get; set; }
         public int Rating { get; set; }
         public string Date { get; set; }
+        public DateTime DateTime { get; set; }
     }
 }

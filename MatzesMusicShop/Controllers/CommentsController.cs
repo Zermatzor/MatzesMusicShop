@@ -24,6 +24,7 @@ namespace MatzesMusicShop.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult CommentForm(CommentViewModel cViewModel)
         {
             if (ModelState.IsValid)
@@ -48,7 +49,7 @@ namespace MatzesMusicShop.Controllers
         {
             int id = (int)Session["CdID"];
             List<CommentViewModel> commentViewModelList = new List<CommentViewModel>();
-            foreach (Comments comment in base.DB.Comments.Where(c=> c.CdID == id))
+            foreach (Comments comment in base.DB.Comments.Where(c => c.CdID == id))
             {
                 commentViewModelList.Add(new CommentViewModel()
                 {
@@ -56,10 +57,11 @@ namespace MatzesMusicShop.Controllers
                     Title = comment.Title,
                     Rating = comment.Rating.Value,
                     Text = comment.Text,
-                    Date = comment.TimeStamp.Value.ToShortDateString()
+                    Date = comment.TimeStamp.Value.ToShortDateString(),
+                    DateTime = comment.TimeStamp.Value
                 });
             }
-            return PartialView("_CommentList", commentViewModelList.OrderByDescending(x=>x.Date));
+            return PartialView("_CommentList", commentViewModelList.OrderByDescending(x => x.DateTime));
         }
     }
 }

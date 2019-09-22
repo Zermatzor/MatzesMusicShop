@@ -1,27 +1,27 @@
-﻿@model MatzesMusicShop.ViewModels.AddToCartViewModel
+﻿@model MatzesMusicShop.ViewModels.DetailViewModel
 
 <link href="~/Content/Details.css" rel="stylesheet" />
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <hr />
-<h2>@Html.DisplayFor(model => model.CD.Artist) - @Html.DisplayFor(model => model.CD.Album)</h2>
+<h2>@Html.DisplayFor(model => model.AddToCartViewModel.CD.Artist) - @Html.DisplayFor(model => model.AddToCartViewModel.CD.Album)</h2>
 <hr />
 <div>
     <table>
         <tr>
             <td>
-                <img src=@Html.DisplayFor(model => model.CD.PictureUrl) width="200" height="200" />
+                <img src=@Html.DisplayFor(model => model.AddToCartViewModel.CD.PictureUrl) width="200" height="200" />
             </td>
             <td class="desription">
-                @Html.DisplayFor(model => model.CD.Beschreibung)
+                @Html.DisplayFor(model => model.AddToCartViewModel.CD.Beschreibung)
             </td>
         </tr>
     </table>
 </div>
 <hr />
-<h4>Einzelpreis: @Html.DisplayFor(model => model.CD.Price) €</h4>
+<h4>Einzelpreis: @Html.DisplayFor(model => model.AddToCartViewModel.CD.Price) €</h4>
 <hr />
-@Html.Partial("_AddToCartModal", Model)
+@Html.Partial("_AddToCartModal", Model.AddToCartViewModel)
 <br />
 @Html.ActionLink("Back to List", "Index")
 <hr />
@@ -30,7 +30,8 @@
         <i class="glyphicon glyphicon-chevron-down"></i> Neuer Kommentar
     </button>
 </div>
-<div id="commentForm">
+<div id="commentFormDiv" hidden>
+    @Html.Partial("../Comments/_CommentForm", Model.CommentViewModel)
 </div>
 <hr />
 <div id="comments">
@@ -60,25 +61,38 @@
         }
         
         $("#showCommentForm").click(function () {
+            expandCommentForm(!commentExpanded);
+        });
+
+        $("#CommentForm").submit(function (e) {
+            e.preventDefault(); // avoid to execute the actual submit of the form.
+
+            var form = $(this);
+            var url = "/Comments/CommentForm";
             $.ajax({
-                url: "/Comments/CommentForm",
-                type: "GET",
+                type: "POST",
+                url: url,
+                data: form.serialize(), // serializes the form's elements.
                 success: function (data) {
-                    if (!commentExpanded) {
-                        $("#showCommentForm i").removeClass("glyphicon glyphicon-chevron-down");
-                        $("#showCommentForm i").addClass("glyphicon glyphicon-chevron-up");
-                        commentExpanded = true;
-                        $("#commentForm").html(data);
-                    }
-                    else {
-                        $("#showCommentForm i").removeClass("glyphicon glyphicon-chevron-up");
-                        $("#showCommentForm i").addClass("glyphicon glyphicon-chevron-down");
-                        commentExpanded = false;
-                        $("#commentForm").empty();
-                    }
+                    expandCommentForm(false);
                 }
             });
         });
+
+        function expandCommentForm(expand) {
+            if (expand) {
+                $("#showCommentForm i").removeClass("glyphicon glyphicon-chevron-down");
+                $("#showCommentForm i").addClass("glyphicon glyphicon-chevron-up");
+                $("#commentFormDiv").show();
+                commentExpanded = true;
+            }
+            else {
+                $("#showCommentForm i").removeClass("glyphicon glyphicon-chevron-up");
+                $("#showCommentForm i").addClass("glyphicon glyphicon-chevron-down");
+                $("#commentFormDiv").hide();
+                commentExpanded = false;
+            }
+        };
 
         // this is the id of the form
         $("#AddToCartForm").submit(function (e) {
