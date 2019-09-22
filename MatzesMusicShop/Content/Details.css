@@ -7,6 +7,8 @@
 .atcContent{
     height:200px;
     text-align:center;
+    vertical-align:middle;
+    align-items:center;
 }
 
 .atcOk {
@@ -45,14 +47,14 @@
 }
 
 .atcDropDown {
-    width:200px;
-    height:50px;
-    font-size:20px;
+    width: 70px;
+    font-size: 30px;
+    height:auto;
 }
 
 .atcLabel {
-    width: 200px;
-    height: 50px;
+    width: 100px;
+    font-size: 30px;
 }
 
 .cfRatingControls {
