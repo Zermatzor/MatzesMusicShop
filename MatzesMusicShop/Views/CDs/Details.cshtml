@@ -26,7 +26,9 @@
 @Html.ActionLink("Back to List", "Index")
 <hr />
 <div>
-    <button type="button" id="showCommentForm" class="btn btn-info btn-lg">Neuer Kommentar</button>
+    <button type="button" id="showCommentForm" class="btn btn-info btn-lg">
+        <i class="glyphicon glyphicon-chevron-down"></i> Neuer Kommentar
+    </button>
 </div>
 <div id="commentForm">
 </div>
@@ -39,6 +41,7 @@
         var interval = 1000;
         var obj = {}; // specify the parameters
         var tempData = {};
+        var commentExpanded = false;
 
         window.setInterval(poll, interval);
         function poll() {
@@ -61,7 +64,18 @@
                 url: "/Comments/CommentForm",
                 type: "GET",
                 success: function (data) {
-                    $("#commentForm").html(data);
+                    if (!commentExpanded) {
+                        $("#showCommentForm i").removeClass("glyphicon glyphicon-chevron-down");
+                        $("#showCommentForm i").addClass("glyphicon glyphicon-chevron-up");
+                        commentExpanded = true;
+                        $("#commentForm").html(data);
+                    }
+                    else {
+                        $("#showCommentForm i").removeClass("glyphicon glyphicon-chevron-up");
+                        $("#showCommentForm i").addClass("glyphicon glyphicon-chevron-down");
+                        commentExpanded = false;
+                        $("#commentForm").empty();
+                    }
                 }
             });
         });
@@ -84,9 +98,12 @@
             });
         });
 
-        $("#msgButton").click(function () {
+        $('#myModal').on('hidden.bs.modal', function () {
             $("#addToCartControls").show();
             $("#addToCartMessage").hide();
+        });
+
+        $("#msgButton").click(function () {
             window.location = "http://localhost:57958/CDs";
         });
     </script>

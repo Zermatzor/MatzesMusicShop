@@ -6,4 +6,52 @@
 
 .atcContent{
     height:200px;
+    text-align:center;
+}
+
+.atcOk {
+    color: green;
+    font-size: 100px;
+    text-align: center;
+}
+
+
+#atcMsg {
+    font-family: 'Century Gothic';
+    font-size: 20px;
+    font-weight:bold;
+    text-align:center;
+}
+
+#msgButton {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+}
+
+#atcSubmit {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+}
+
+#atcClose {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+.atcButton {
+    width: 200px;
+}
+
+.atcDropDown {
+    width:200px;
+    height:50px;
+    font-size:20px;
+}
+
+.atcLabel {
+    width: 200px;
+    height: 50px;
 }

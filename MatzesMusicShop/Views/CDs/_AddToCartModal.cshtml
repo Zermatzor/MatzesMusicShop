@@ -1,5 +1,9 @@
 ﻿@model MatzesMusicShop.ViewModels.AddToCartViewModel
 
+@{
+    string addToCartMsg = "Der Artikel wurde dem Warenkorb hinzugefügt";
+}
+
 <div>
     <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Zum Warenkorb hinzufügen</button>
 </div>
@@ -22,20 +26,21 @@
                             @Html.HiddenFor(model => model.CD.Beschreibung)
                             @Html.HiddenFor(model => model.CD.PictureUrl)
                             @Html.HiddenFor(model => model.CD.Price)
-                            <div id ="addToCartControls" class="form-group" style="display:block">
-                                <div class="col-md-2 atcContent">
-                                    <label>Anzahl </label>
-                                    @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { style = "width:100px", type = "number", min = "1", max = "12", @class = "form-control" } })
+                            <div id="addToCartControls" class="form-group form-inline" style="display:block">
+                                <div class="atcContent">
+                                    <label class="atcLabel">Anzahl</label>
+                                    @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { style = "width:100px", type = "number", min = "1", max = "12", @class = "form-control atcDropDown" } })
                                     @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
                                     <br />
-                                    <input type="submit" value="hinzufügen" class="btn btn-primary" />
-                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
+                                    <input id="atcSubmit" type="submit" value="hinzufügen" class="btn btn-primary atcButton" />
+                                    <button id="atcClose" type="button" class="btn btn-primary atcButton" data-dismiss="modal">Zurück</button>
                                 </div>
                             </div>
-                            <div id ="addToCartMessage" class="form-group" style="display:none">
-                                <div class="col-md-2 atcContent">
-                                    <div>Jeah</div>
-                                    <button id="msgButton" type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                            <div id="addToCartMessage" class="form-group" style="display:none">
+                                <div class="atcContent">
+                                    <div id="atcMsg">@addToCartMsg</div>
+                                    <div class="atcOk"><i class="glyphicon glyphicon-ok"></i></div>
+                                    <button id="msgButton" type="button" class="btn btn-primary atcButton" data-dismiss="modal">OK</button>
                                 </div>
                             </div>
                         </div>

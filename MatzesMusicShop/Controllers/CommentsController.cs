@@ -59,7 +59,7 @@ namespace MatzesMusicShop.Controllers
                     Date = comment.TimeStamp.Value.ToShortDateString()
                 });
             }
-            return PartialView("_CommentList", commentViewModelList);
+            return PartialView("_CommentList", commentViewModelList.OrderByDescending(x=>x.Date));
         }
     }
 }
