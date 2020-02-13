@@ -13,10 +13,13 @@
 .atcOk {
     color: green;
     font-size: 100px;
+
+
     text-align: center;
 }
 
 #atcMsg {
+
     font-family: 'Century Gothic';
     font-size: 20px;
     font-weight:bold;
